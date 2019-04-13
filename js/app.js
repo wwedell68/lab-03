@@ -22,18 +22,21 @@ Horn.prototype.render = function() {
 };
 
 Horn.readJson = () => {
-  $.get('data/page-1.json', 'json')
-    .then(data => {
-      data.forEach(item => {
-        Horn.allHorns.push(new Horn(item));
-      });
+  if($('#page-select').val() === 'default') {
 
-      Horn.allHorns.forEach(horn => {
-        $('main').append(horn.render());
-      });
-    })
-    .then(Horn.populateFilter)
-    .then(Horn.handleFilter);
+    $.get('data/page-1.json', 'json')
+      .then(data => {
+        data.forEach(item => {
+          Horn.allHorns.push(new Horn(item));
+        });
+
+        Horn.allHorns.forEach(horn => {
+          $('main').append(horn.render());
+        });
+      })
+      .then(Horn.populateFilter)
+      .then(Horn.handleFilter);
+  }
 };
 
 Horn.populateFilter = () => {
